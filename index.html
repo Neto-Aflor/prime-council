@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prime Council · Workshop — Método, Não Motivação</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS DE DESIGN
+       ============================================================ */
+    :root {
+      --ink:        #0D0D0D;
+      --ink-mid:    #2C2A27;
+      --bone:       #F4F1EB;
+      --paper:      #FFFFFF;
+      --rule:       #DDD9D0;
+      --rule-soft:  #EAE6DE;
+      --muted:      #7A7570;
+      --gold:       #9A7B4A;
+      --gold-light: #BFA06B;
+      --gold-pale:  #EDE0C8;
+      --danger:     #8B2020;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+
+      --radius:    3px;
+      --radius-lg: 5px;
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
+      --t:         0.22s ease;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bone);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container {
+      width: 100%;
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ============================================================
+       UTILITÁRIOS
+       ============================================================ */
+    .section-lbl {
+      font-family: var(--sans);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .gold-rule {
+      width: 40px; height: 1px;
+      background: var(--gold-light);
+      margin: 0 auto 28px;
+    }
+    .gold-rule.left { margin-left: 0; }
+
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .section-header h2 em  { font-style: italic; color: var(--gold); }
+    .section-header h2.inv { color: var(--paper); }
+    .section-header .lead {
+      font-size: 14.5px;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.72;
+    }
+    .section-header .lead.inv { color: rgba(244,241,235,0.45); }
+
+    /* ============================================================
+       BOTÕES
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background var(--t), transform var(--t), box-shadow var(--t), color var(--t), border-color var(--t);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .btn-primary:hover {
+      background: var(--ink-mid);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(13,13,13,0.2);
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--paper);
+      border-color: var(--gold);
+    }
+    .btn-gold:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(154,123,74,0.28);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink-mid);
+      border-color: var(--rule);
+    }
+    .btn-outline:hover {
+      border-color: var(--ink-mid);
+      background: rgba(13,13,13,0.03);
+    }
+    .btn-outline-inv {
+      background: transparent;
+      color: rgba(244,241,235,0.7);
+      border-color: rgba(221,217,208,0.2);
+    }
+    .btn-outline-inv:hover {
+      border-color: rgba(221,217,208,0.5);
+      color: var(--paper);
+      background: rgba(255,255,255,0.04);
+    }
+    .btn-lg { padding: 15px 36px; font-size: 12px; }
+
+    /* ============================================================
+       BADGE DE VAGAS
+       ============================================================ */
+    .badge-vagas {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      background: rgba(154,123,74,0.06);
+    }
+    .badge-vagas::before {
+      content: '';
+      width: 5px; height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pdot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pdot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+    /* ============================================================
+       STICKY MOBILE CTA
+       ============================================================ */
+    .sticky-mobile {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--ink);
+      border-top: 1px solid rgba(191,160,107,0.15);
+      padding: 10px 20px;
+      z-index: 999;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .sticky-mobile-info { line-height: 1.3; }
+    .sticky-mobile-info strong {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--paper);
+      letter-spacing: 0.02em;
+    }
+    .sticky-mobile-info span {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 640px) {
+      .sticky-mobile { display: flex; }
+      body { padding-bottom: 68px; }
+    }
+
+    /* ============================================================
+       DUPLA LINHA
+       ============================================================ */
+    .rule-black { height: 3px; background: var(--ink); }
+    .rule-gold  { height: 1px; background: var(--gold-light); }
+
+    /* ============================================================
+       SEÇÃO 1 · HERO
+       ============================================================ */
+    #hero {
+      background: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 60px,
+        rgba(191,160,107,0.02) 60px,
+        rgba(191,160,107,0.02) 61px
+      );
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: -15%; right: -8%;
+      width: 55%; height: 75%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(154,123,74,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid rgba(221,217,208,0.1);
+      position: relative; z-index: 2;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(191,160,107,0.2);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 17px;
+    }
+    .logo-bars span {
+      display: block;
+      background: var(--gold-light);
+      border-radius: 1px;
+      width: 3px;
+    }
+    .hero-brand { display: flex; align-items: center; gap: 12px; }
+    .hero-brand-text h2 {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--paper);
+      letter-spacing: 0.04em;
+    }
+    .hero-brand-text p {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.07em;
+      margin-top: 2px;
+    }
+    .chip {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      padding: 1px 6px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .hero-topbar-right {
+      text-align: right;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .hero-topbar-right strong {
+      display: block;
+      font-size: 12px;
+      color: var(--gold-light);
+      margin-bottom: 2px;
+    }
+
+    .hero-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 28px 56px;
+      position: relative; z-index: 2;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      border: 1px solid rgba(191,160,107,0.3);
+      color: var(--gold-light);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 600;
+      line-height: 1.12;
+      color: var(--paper);
+      max-width: 800px;
+      letter-spacing: 0.01em;
+      margin-bottom: 6px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold-light); }
+
+    .hero-consequence {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-style: italic;
+      color: rgba(191,160,107,0.55);
+      margin-bottom: 28px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(244,241,235,0.5);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.78;
+      font-weight: 300;
+    }
+    .hero-sub strong { color: rgba(244,241,235,0.82); font-weight: 500; }
+
+    .hero-ctas {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .hero-invest {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .hero-invest strong { color: var(--gold-light); }
+    .hero-micro {
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 0.07em;
+    }
+    .hero-micro a {
+      color: var(--gold-light);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .hero-footer {
+      border-top: 1px solid rgba(221,217,208,0.08);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      position: relative; z-index: 2;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+    .hero-meta strong { color: rgba(255,255,255,0.7); }
+    .h-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.08); }
+
+    /* ============================================================
+       SEÇÃO 2 · PROBLEMA
+       ============================================================ */
+    #problema { background: var(--bone); padding: 88px 0; }
+
+    .problema-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .problema-intro h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 2.9rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.12;
+      margin-bottom: 24px;
+    }
+    .problema-intro h2 em { font-style: italic; color: var(--gold); }
+    .problema-intro p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 16px;
+    }
+    .problema-intro p strong { color: var(--ink); }
+
+    /* Custo de não agir */
+    .cost-block {
+      margin-top: 28px;
+      padding: 22px 24px;
+      background: rgba(139,32,32,0.04);
+      border: 1px solid rgba(139,32,32,0.14);
+      border-left: 2px solid rgba(139,32,32,0.5);
+      border-radius: var(--radius);
+    }
+    .cost-block p {
+      font-size: 13px;
+      color: rgba(139,32,32,0.8);
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+    .cost-block p strong { color: rgba(139,32,32,0.95); font-weight: 600; }
+
+    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .pain-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule-soft);
+      align-items: flex-start;
+    }
+    .pain-item:first-child { padding-top: 0; }
+    .pain-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .pain-num {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold-pale);
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 2px;
+      min-width: 32px;
+    }
+    .pain-text h4 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .pain-text p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* Ponte narrativa */
+    .narrative-bridge {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .narrative-bridge p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      line-height: 1.72;
+    }
+    .narrative-bridge p strong { font-style: normal; color: var(--gold); }
+
+    /* ============================================================
+       SEÇÃO 3 · PARA QUEM
+       ============================================================ */
+    #para-quem { background: var(--paper); padding: 88px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .audience-card {
+      background: var(--paper);
+      padding: 36px 28px;
+      border-top: 2px solid var(--gold);
+      transition: background var(--t);
+    }
+    .audience-card:hover { background: #FDFBF7; }
+    .audience-card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .audience-situation {
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .audience-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+    /* Exclusão */
+    .audience-exclusion {
+      margin-top: 36px;
+      padding: 18px 24px;
+      background: var(--bone);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .exclusion-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .audience-exclusion p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       SEÇÃO 4 · DIFERENCIAL
+       ============================================================ */
+    #diferencial {
+      background: var(--ink-mid);
+      padding: 88px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #diferencial::before {
+      content: '"';
+      position: absolute;
+      top: -80px; left: 1%;
+      font-family: var(--serif);
+      font-size: 32rem;
+      color: rgba(191,160,107,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .diferencial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .diferencial-quote {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(221,217,208,0.1);
+      border-left: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 40px 36px;
+    }
+    .diferencial-quote-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .diferencial-positioning p {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-style: italic;
+      color: rgba(244,241,235,0.65);
+      line-height: 1.72;
+      margin-bottom: 14px;
+    }
+    .diferencial-positioning p:last-child { margin-bottom: 0; }
+    .diferencial-positioning strong { color: var(--gold-light); font-style: normal; }
+
+    .diferencial-items h3 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--paper);
+      margin-bottom: 28px;
+      line-height: 1.25;
+    }
+    .diferencial-items h3 em { font-style: italic; color: var(--gold-light); }
+    .diff-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .diff-item:last-child { margin-bottom: 0; }
+    .diff-check {
+      width: 22px; height: 22px;
+      border: 1px solid rgba(191,160,107,0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: border-color var(--t), background var(--t);
+    }
+    .diff-item:hover .diff-check {
+      border-color: var(--gold);
+      background: rgba(154,123,74,0.08);
+    }
+    .diff-item-text h4 {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 3px;
+    }
+    .diff-item-text p {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.36);
+      line-height: 1.55;
+    }
+
+    /* ============================================================
+       SEÇÃO 5 · FACILITADOR
+       ============================================================ */
+    #facilitador {
+      background: var(--bone);
+      padding: 88px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #facilitador::before {
+      content: '';
+      position: absolute;
+      bottom: -120px; left: -80px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(154,123,74,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .facilitador-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .facilitador-avatar {
+      width: 140px; height: 140px;
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .facilitador-avatar-placeholder {
+      font-size: 11px;
+      color: rgba(13,13,13,0.25);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.6;
+      padding: 12px;
+    }
+    .facilitador-body { padding-top: 4px; }
+    .facilitador-name {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .facilitador-role {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .facilitador-bio {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.78;
+      max-width: 540px;
+      margin-bottom: 24px;
+    }
+    .facilitador-bio strong { color: var(--ink); font-weight: 500; }
+    .facilitador-credentials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cred-tag {
+      display: inline-block;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 2px;
+      background: var(--paper);
+    }
+
+    /* ============================================================
+       SEÇÃO 6 · ENTREGÁVEIS
+       ============================================================ */
+    #entregaveis { background: var(--paper); padding: 88px 0; border-top: 1px solid var(--rule); }
+
+    .entregaveis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .entregavel-card {
+      background: var(--paper);
+      padding: 40px 32px;
+      transition: background var(--t);
+      position: relative;
+    }
+    .entregavel-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 32px; right: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-light), transparent);
+      opacity: 0;
+      transition: opacity var(--t);
+    }
+    .entregavel-card:hover { background: #FDFCF8; }
+    .entregavel-card:hover::after { opacity: 1; }
+    .entregavel-num {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gold-pale);
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+    .entregavel-tag {
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .entregavel-card h3 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .entregavel-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .entregavel-impact {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       SEÇÃO 7 · IRFE — SISTEMA EM AÇÃO
+       ============================================================ */
+    #diagnostico { background: var(--bone); padding: 88px 0; border-top: 1px solid var(--rule); }
+
+    .irfe-outer-label {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .diagnostico-card {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-left: 2px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: 52px 48px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* IRFE headline bloco */
+    .irfe-headline {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 48px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .irfe-headline h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .irfe-headline h2 em { font-style: italic; color: var(--gold); }
+    .irfe-headline p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .irfe-headline p strong { color: var(--ink); font-weight: 500; }
+
+    /* IRFE corpo */
+    .diagnostico-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .diagnostico-copy p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .diagnostico-copy p:last-child { margin-bottom: 0; }
+    .diagnostico-copy p strong { color: var(--ink); font-weight: 500; }
+    .diagnostico-copy .irfe-progression {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: var(--bone);
+      border: 1px solid var(--rule-soft);
+      border-radius: var(--radius);
+    }
+    .irfe-progression p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.68;
+      margin-bottom: 0 !important;
+    }
+    .irfe-progression strong { font-style: normal; color: var(--gold); }
+
+    /* Eixos com progressão narrativa */
+    .irfe-eixos { display: flex; flex-direction: column; gap: 8px; }
+    .irfe-eixo {
+      display: flex;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--bone);
+      border: 1px solid var(--rule-soft);
+      border-radius: var(--radius);
+      align-items: flex-start;
+      transition: border-color var(--t), background var(--t);
+    }
+    .irfe-eixo:hover {
+      border-color: var(--rule);
+      background: #FDFCF9;
+    }
+    .eixo-seq {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-pale);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 22px;
+      margin-top: 1px;
+    }
+    .eixo-body h4 {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .eixo-body p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+    .eixo-arrow {
+      font-size: 10px;
+      color: var(--gold);
+      margin-left: auto;
+      flex-shrink: 0;
+      align-self: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* Métricas */
+    .diagnostico-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .metric-block {
+      background: var(--bone);
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .metric-val {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .metric-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* CTA do IRFE */
+    .diagnostico-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+      padding-top: 28px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .diagnostico-cta-text p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.72;
+      max-width: 440px;
+    }
+    .diagnostico-cta-text p strong { color: var(--ink); }
+    .diagnostico-cta-meta {
+      font-size: 10.5px;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       SEÇÃO 8 · PROVA SOCIAL
+       ============================================================ */
+    #prova {
+      background: var(--paper);
+      padding: 88px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .prova-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .depoimento-card {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-left: 2px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--t);
+    }
+    .depoimento-card:hover { box-shadow: var(--shadow-md); }
+    .depoimento-text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: var(--ink);
+      line-height: 1.72;
+      margin-bottom: 20px;
+    }
+    .depoimento-text.placeholder {
+      color: rgba(13,13,13,0.28);
+      font-style: normal;
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      border: 1px dashed var(--rule);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: var(--bone);
+    }
+    .depoimento-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--rule-soft);
+      padding-top: 16px;
+    }
+    .depoimento-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--bone);
+      border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .depoimento-author strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .depoimento-author span {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+    .depoimento-author.placeholder strong,
+    .depoimento-author.placeholder span {
+      color: rgba(13,13,13,0.3);
+    }
+
+    /* ============================================================
+       SEÇÃO 9 · EVENTO
+       ============================================================ */
+    #evento { background: var(--ink); padding: 88px 0; }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .event-card {
+      background: rgba(255,255,255,0.025);
+      padding: 30px 20px;
+      text-align: center;
+      transition: background var(--t);
+    }
+    .event-card:hover { background: rgba(154,123,74,0.05); }
+    .event-card-lbl {
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .event-card-val {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--paper);
+      line-height: 1.35;
+    }
+    .event-address {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(221,217,208,0.08);
+      border-left: 2px solid rgba(191,160,107,0.35);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .event-address p { font-size: 13px; color: rgba(255,255,255,0.42); }
+    .event-address strong { color: var(--gold-light); }
+
+    /* ============================================================
+       SEÇÃO 10 · URGÊNCIA
+       ============================================================ */
+    #urgencia {
+      background: var(--bone);
+      padding: 72px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .urgencia-card {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-top: 2px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: 44px 48px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .urgencia-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .urgencia-text p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.72;
+      max-width: 480px;
+    }
+    .urgencia-text p + p { margin-top: 10px; }
+    .urgencia-text strong { color: var(--ink); }
+    .urgencia-stat { text-align: center; flex-shrink: 0; }
+    .urgencia-num {
+      font-family: var(--serif);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .urgencia-num-lbl {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       SEÇÃO 11 · CTA FINAL
+       ============================================================ */
+    #cta-final {
+      background: var(--bone);
+      padding: 96px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta-final::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(154,123,74,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #cta-final h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.18;
+      max-width: 640px;
+      margin: 0 auto 16px;
+      position: relative; z-index: 1;
+    }
+    #cta-final h2 em { font-style: italic; color: var(--gold); }
+    .cta-final-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative; z-index: 1;
+    }
+    /* Custo de não agir — CTA final */
+    .cta-cost {
+      display: inline-block;
+      font-size: 12.5px;
+      color: rgba(139,32,32,0.7);
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+      position: relative; z-index: 1;
+    }
+    .cta-final-single {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      position: relative; z-index: 1;
+    }
+    .cta-final-invest {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+    .cta-final-invest strong { color: var(--ink); }
+    .cta-secondary-link {
+      font-size: 11.5px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      position: relative; z-index: 1;
+      margin-bottom: 20px;
+    }
+    .cta-secondary-link a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .cta-secondary-link a:hover { color: var(--gold-light); }
+    .cta-contact {
+      font-size: 12px;
+      color: var(--muted);
+      position: relative; z-index: 1;
+    }
+    .cta-contact a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .cta-contact a:hover { color: var(--gold-light); }
+
+    /* ============================================================
+       RODAPÉ
+       ============================================================ */
+    footer { background: var(--bone); padding: 30px 0; }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+    }
+    .footer-brand span {
+      display: block;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.07em;
+      margin-top: 2px;
+    }
+    .footer-copy {
+      font-size: 11.5px;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.7;
+    }
+    .footer-copy a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ============================================================
+       RESPONSIVO
+       ============================================================ */
+    @media (max-width: 860px) {
+      .problema-grid      { grid-template-columns: 1fr; gap: 48px; }
+      .diferencial-grid   { grid-template-columns: 1fr; gap: 40px; }
+      .diagnostico-top    { grid-template-columns: 1fr; gap: 40px; }
+      .diagnostico-metrics { grid-template-columns: repeat(2, 1fr); }
+      .urgencia-card      { grid-template-columns: 1fr; text-align: left; }
+      .urgencia-stat      { text-align: left; order: -1; }
+      .event-grid         { grid-template-columns: repeat(3, 1fr); }
+      .facilitador-grid   { grid-template-columns: 1fr; gap: 32px; }
+      .facilitador-avatar { width: 100px; height: 100px; }
+      .prova-grid         { grid-template-columns: 1fr; }
+      .entregaveis-grid   { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .audience-grid      { grid-template-columns: 1fr; }
+      .event-grid         { grid-template-columns: repeat(2, 1fr); }
+      .hero-topbar        { padding: 14px 20px; }
+      .hero-topbar-right  { display: none; }
+      .hero-footer        { display: none; }
+      .hero-ctas .btn     { width: 100%; justify-content: center; min-height: 48px; }
+      #cta-final .btn     { width: 100%; justify-content: center; min-height: 48px; }
+      .diagnostico-card   { padding: 32px 24px; }
+      .diagnostico-cta-row { flex-direction: column; align-items: flex-start; }
+      #para-quem, #problema, #entregaveis, #diferencial,
+      #diagnostico, #evento, #urgencia, #cta-final,
+      #facilitador, #prova { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY MOBILE -->
+  <div class="sticky-mobile">
+    <div class="sticky-mobile-info">
+      <strong>Prime Council · Workshop</strong>
+      <span>29 Mai · 08h30 · Campinas — 20 vagas</span>
+    </div>
+    <a href="https://neto-aflor.github.io/prime-lp/" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="flex-shrink:0; padding: 11px 20px;">
+      Garantir vaga
+    </a>
+  </div>
+
+  <div class="rule-black"></div>
+  <div class="rule-gold"></div>
+
+
+  <!-- ============================================================
+       SEÇÃO 1 · HERO
+       Dor + consequência + diferenciador + CTA único
+       ============================================================ -->
+  <section id="hero">
+
+    <div class="hero-topbar">
+      <div class="hero-brand">
+        <div class="logo-mark">
+          <div class="logo-bars">
+            <span style="height:7px"></span>
+            <span style="height:12px"></span>
+            <span style="height:17px"></span>
+          </div>
+        </div>
+        <div class="hero-brand-text">
+          <h2>Prime Council <span class="chip">Exclusivo</span></h2>
+          <p>Workshop Presencial · Campinas, SP</p>
+        </div>
+      </div>
+      <div class="hero-topbar-right">
+        <strong>29 de Maio de 2026</strong>
+        08h30 às 11h00
+      </div>
+    </div>
+
+    <div class="hero-body">
+
+      <div class="badge-vagas" style="margin-bottom: 28px;">20 vagas · Confirmação por ordem de inscrição</div>
+
+      <div class="hero-pill">Método, não motivação</div>
+
+      <h1 class="hero-h1">
+        Você decide tudo.<br />
+        Resolve tudo.<br />
+        <em>Com base em quê?</em>
+      </h1>
+
+      <p class="hero-consequence">
+        Decisão sem estrutura não é coragem. É risco acumulado.
+      </p>
+
+      <p class="hero-sub">
+        Em uma manhã, você identifica o gargalo que está travando sua operação,
+        entende <strong>por que ele volta todo mês</strong> e sai com um próximo passo
+        executável na semana seguinte — com critério, sem depender de consultoria.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://neto-aflor.github.io/prime-lp/" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-lg">
+          Garantir minha vaga — 29 de Maio
+        </a>
+      </div>
+
+      <p class="hero-invest">
+        Investimento: <strong>[Valor do investimento]</strong>
+      </p>
+      <p class="hero-micro" style="margin-top: 6px;">Vagas por ordem de confirmação · Não há lista de espera</p>
+      <p class="hero-micro" style="margin-top: 8px; color: rgba(255,255,255,0.28);">
+        Confirmar diretamente? &nbsp;
+        <a href="https://wa.me/5519992402233" target="_blank" rel="noopener noreferrer">WhatsApp: (19) 99240-2233</a>
+      </p>
+
+    </div>
+
+    <div class="hero-footer">
+      <div class="hero-meta"><strong>29 de Maio, 2026</strong></div>
+      <div class="h-sep"></div>
+      <div class="hero-meta"><strong>08h30 às 11h00</strong></div>
+      <div class="h-sep"></div>
+      <div class="hero-meta">Campinas · SP — <strong>Bloco Madri, Sala 132</strong></div>
+      <div class="h-sep"></div>
+      <div class="hero-meta"><strong>20 vagas</strong> · Presencial</div>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 2 · PROBLEMA
+       Tensão crescente → custo de não agir → ponte para solução
+       ============================================================ -->
+  <section id="problema">
+    <div class="container">
+      <div class="problema-grid">
+
+        <div class="problema-intro">
+          <span class="section-lbl">O problema real</span>
+          <div class="gold-rule left"></div>
+          <h2>Você decide<br /><em>no escuro?</em></h2>
+          <p>
+            A maioria das empresas não falha por falta de esforço.
+            Falha porque cada decisão importante vira uma aposta —
+            tomada com urgência, sem critério, sem estrutura.
+          </p>
+          <p>
+            Os gargalos que travam sua operação hoje existiam há seis meses.
+            <strong>Você provavelmente já sabe quais são.</strong>
+            O problema não é identificá-los. É que sem método, eles continuam
+            voltando — consumindo energia, time e margem.
+          </p>
+
+          <!-- CUSTO DE NÃO AGIR -->
+          <div class="cost-block">
+            <p>
+              <strong>Cada mês sem método é um mês com o mesmo problema.</strong>
+              Não é estagnação — é custo real acumulado em decisões erradas,
+              retrabalho evitável e oportunidades que não esperaram.
+            </p>
+          </div>
+
+          <div class="narrative-bridge">
+            <p>
+              O workshop não resolve os problemas por você.
+              Entrega o método para que você os resolva —
+              com <strong>critério, velocidade e sem depender de mais opiniões.</strong>
+            </p>
+          </div>
+        </div>
+
+        <ul class="pain-list">
+          <li class="pain-item">
+            <span class="pain-num">01</span>
+            <div class="pain-text">
+              <h4>Você decide com urgência, não com critério</h4>
+              <p>A reunião pressiona, a planilha não fecha, o prazo vence — e a decisão sai por intuição. Funciona até o dia em que custa caro demais.</p>
+            </div>
+          </li>
+          <li class="pain-item">
+            <span class="pain-num">02</span>
+            <div class="pain-text">
+              <h4>Os mesmos gargalos voltam todo mês</h4>
+              <p>Você já nomeou o problema. Já priorizou. Já delegou. Ele continua lá — porque sem método, resolve-se o sintoma, não a causa.</p>
+            </div>
+          </li>
+          <li class="pain-item">
+            <span class="pain-num">03</span>
+            <div class="pain-text">
+              <h4>A estratégia existe. A execução não sustenta</h4>
+              <p>O plano estava claro na reunião. Na segunda semana, virou ruído. O problema não é o time — é a ausência de estrutura de acompanhamento.</p>
+            </div>
+          </li>
+          <li class="pain-item">
+            <span class="pain-num">04</span>
+            <div class="pain-text">
+              <h4>Crescer aumenta a pressão, não reduz</h4>
+              <p>Faturamento sobe, complexidade explode. Cada expansão adiciona mais variáveis do que capacidade de gestão. O modelo não escala sozinho.</p>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 3 · PARA QUEM
+       Situação real, não cargo. Qualificação, não repetição.
+       ============================================================ -->
+  <section id="para-quem">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-lbl">Público</span>
+        <div class="gold-rule"></div>
+        <h2>Para quem é <em>este encontro?</em></h2>
+        <p class="lead">
+          Para quem já sabe o que precisa mudar — e está cansado de
+          empurrar o mesmo problema para o mês seguinte.
+        </p>
+      </div>
+
+      <div class="audience-grid">
+        <div class="audience-card">
+          <h3>O Empresário</h3>
+          <p class="audience-situation">Faturando — e vendo os problemas crescerem junto</p>
+          <p>Que toma decisões estratégicas sozinho, sente o peso de cada escolha errada no resultado do mês e precisa de estrutura — não de mais uma reunião.</p>
+        </div>
+        <div class="audience-card">
+          <h3>O Executivo</h3>
+          <p class="audience-situation">Com estratégia clara e execução fragmentada</p>
+          <p>Que tem o caminho mapeado, mas vê o time executar em direções diferentes — e sabe que o gargalo não é esforço, é falta de método.</p>
+        </div>
+        <div class="audience-card">
+          <h3>O Líder</h3>
+          <p class="audience-situation">Diante de uma decisão que não pode errar</p>
+          <p>Que enfrenta uma expansão, transição ou reestruturação e precisa decidir com critério — não com intuição, não com mais dados, não com mais opinião.</p>
+        </div>
+      </div>
+
+      <div class="audience-exclusion">
+        <span class="exclusion-label">Este workshop não é para</span>
+        <p>Quem busca inspiração, networking ou mais teoria. O formato é de trabalho — você entra com um problema real e sai com uma decisão estruturada. Se o objetivo é motivação, existem outros eventos.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 4 · DIFERENCIAL
+       O que é — e o que não é. Antes da autoridade do facilitador.
+       ============================================================ -->
+  <section id="diferencial">
+    <div class="container">
+      <div class="diferencial-grid">
+
+        <div class="diferencial-quote">
+          <span class="diferencial-quote-label">O que é — e o que não é</span>
+          <div class="diferencial-positioning">
+            <p>
+              O Prime Council <strong>não é um evento motivacional.</strong>
+              Não há palestra sobre mindset, cases genéricos de quem cresceu
+              do zero ou networking por obrigação.
+            </p>
+            <p>
+              É um workshop de trabalho. Você entra com um problema real.
+              Sai com diagnóstico estruturado, protocolo de priorização aplicável
+              e um próximo passo com data e responsável.
+            </p>
+            <p>
+              <strong>Cada etapa tem entregável. Cada entregável tem aplicação imediata.</strong>
+              Não na próxima semana. No dia seguinte.
+            </p>
+          </div>
+        </div>
+
+        <div class="diferencial-items">
+          <h3>Por que o Prime Council<br />é <em>diferente?</em></h3>
+
+          <div class="diff-item">
+            <div class="diff-check">✓</div>
+            <div class="diff-item-text">
+              <h4>Método, não motivação</h4>
+              <p>Cada etapa segue um processo estruturado com entregáveis concretos — não slides inspiracionais, não frameworks genéricos.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-check">✓</div>
+            <div class="diff-item-text">
+              <h4>20 participantes — condição técnica, não estratégia de escassez</h4>
+              <p>Diagnóstico real exige atenção real. Profundidade em decisão exige grupo pequeno. O limite existe para que cada empresário saia com um plano próprio.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-check">✓</div>
+            <div class="diff-item-text">
+              <h4>Ferramentas proprietárias na saída</h4>
+              <p>Você não vai para casa com notas. Vai com o Protocolo Prime de Priorização, um diagnóstico e um plano — prontos para executar sem adaptação.</p>
+            </div>
+          </div>
+          <div class="diff-item">
+            <div class="diff-check">✓</div>
+            <div class="diff-item-text">
+              <h4>A decisão mais importante do próximo mês — estruturada antes de sair</h4>
+              <p>O objetivo não é você sair motivado. É você sair com a decisão difícil já construída — com critério, responsável e prazo.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 5 · FACILITADOR
+       Autoridade em contexto — vem depois que o leitor já sentiu a dor
+       e entendeu o diferencial. Agora sabe com quem vai aprender.
+       ============================================================ -->
+  <section id="facilitador">
+    <div class="container">
+      <div class="facilitador-grid">
+
+        <div class="facilitador-avatar">
+          <!--
+            INSTRUÇÃO EDITORIAL:
+            Substituir por:
+            <img src="foto.jpg" alt="[Nome do Facilitador]" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">
+          -->
+          <div class="facilitador-avatar-placeholder">Foto do<br />facilitador</div>
+        </div>
+
+        <div class="facilitador-body">
+          <span class="section-lbl" style="color: var(--gold);">Quem conduz o workshop</span>
+          <!--
+            INSTRUÇÃO EDITORIAL: Substituir [Nome do Facilitador] pelo nome real.
+          -->
+          <h2 class="facilitador-name">[Nome do Facilitador]</h2>
+          <!--
+            INSTRUÇÃO EDITORIAL: Substituir pelo cargo e vínculo real com AFLOR / Prime Council.
+            Ex.: "Estrategista Financeiro · Criador do Sistema AFLOR"
+          -->
+          <p class="facilitador-role">[Cargo · Prime Council]</p>
+          <!--
+            INSTRUÇÃO EDITORIAL:
+            2–3 linhas diretas — formação ou experiência comprovável,
+            resultado mensurável de trabalho anterior, e por que essa
+            pessoa é a referência certa para este problema específico.
+            Ex.: "15 anos assessorando empresas de médio porte em
+            reestruturação estratégica. Mais de 80 diagnósticos conduzidos.
+            Criador do sistema IRFE — aplicado em empresas em X estados."
+          -->
+          <p class="facilitador-bio">
+            [Experiência comprovável + resultado mensurável + razão de autoridade específica para este tema.]
+            <br /><br />
+            [Por que esta pessoa — e não qualquer outro consultor — está na posição certa para conduzir este diagnóstico.]
+          </p>
+          <div class="facilitador-credentials">
+            <span class="cred-tag">[Credencial 1]</span>
+            <span class="cred-tag">[Credencial 2]</span>
+            <span class="cred-tag">[Credencial 3]</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 6 · ENTREGÁVEIS
+       Concretos, nomeados e com impacto declarado.
+       ============================================================ -->
+  <section id="entregaveis">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-lbl">O que você leva</span>
+        <div class="gold-rule"></div>
+        <h2>Três entregáveis. <em>Uma manhã.</em></h2>
+        <p class="lead">
+          Não são anotações. São ferramentas com nome, com aplicação definida
+          e prontas para usar na segunda-feira seguinte — sem adaptação.
+        </p>
+      </div>
+
+      <div class="entregaveis-grid">
+
+        <div class="entregavel-card">
+          <div class="entregavel-num">01</div>
+          <span class="entregavel-tag">Diagnóstico · Sistema Prime & AFLOR</span>
+          <h3>Mapa do Gargalo Principal</h3>
+          <p>
+            Identificação precisa do problema que está consumindo mais
+            energia e travando os demais. Mapeado por eixo, priorizado
+            por impacto e com direção de ação definida.
+          </p>
+          <p class="entregavel-impact">→ Você sai sabendo exatamente onde atuar primeiro.</p>
+        </div>
+
+        <div class="entregavel-card">
+          <div class="entregavel-num">02</div>
+          <span class="entregavel-tag">Protocolo · Prime Council</span>
+          <h3>Protocolo Prime de Priorização</h3>
+          <p>
+            Três perguntas com sequência definida que eliminam o ruído
+            de qualquer decisão difícil — sem reunião extra, sem consultoria,
+            sem depender de gut feeling.
+          </p>
+          <p class="entregavel-impact">→ Aplicável na próxima decisão que você está adiando.</p>
+        </div>
+
+        <div class="entregavel-card">
+          <div class="entregavel-num">03</div>
+          <span class="entregavel-tag">Plano · Próxima Semana</span>
+          <h3>Próximo Passo com Consequência</h3>
+          <p>
+            Um passo concreto, com dono e prazo — não uma lista de
+            intenções. Uma ação com impacto mensurável, construída
+            dentro do workshop e pronta para executar.
+          </p>
+          <p class="entregavel-impact">→ Não você vai embora com insight. Vai com decisão.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 7 · IRFE — SISTEMA EM AÇÃO
+       Primeira evidência prática de inteligência proprietária.
+       Não é formulário. Não é ferramenta gratuita. É o método em movimento.
+       ============================================================ -->
+  <section id="diagnostico">
+    <div class="container">
+
+      <div class="irfe-outer-label">
+        <span class="section-lbl">Sistema Prime & AFLOR · Diagnóstico proprietário · V3</span>
+        <div class="gold-rule"></div>
+      </div>
+
+      <div class="diagnostico-card">
+
+        <!-- Headline centralizado — âncora de inteligência -->
+        <div class="irfe-headline">
+          <h2>Antes de entrar na sala,<br />o método já começa a <em>trabalhar.</em></h2>
+          <p>
+            O IRFE — Índice de Risco Financeiro Empresarial — é o protocolo
+            de diagnóstico multicritério desenvolvido pela AFLOR para leitura
+            estruturada da exposição financeira do negócio.
+            <strong>Não é uma autoavaliação. Não é um checklist.</strong>
+            É uma leitura de quatro vetores que expõe, com precisão,
+            onde a operação está vulnerável — incluindo os riscos que não aparecem
+            nos relatórios mensais e que só se tornam visíveis quando já custaram caro.
+          </p>
+        </div>
+
+        <div class="diagnostico-top">
+
+          <div class="diagnostico-copy">
+            <p>
+              O IRFE frequentemente revela exposições que o próprio empresário
+              não havia identificado — porque não estavam visíveis nos relatórios mensais.
+              Participantes que chegam ao workshop com o IRFE executado
+              não precisam de sessão de identificação de problema.
+              Eles entram diretamente na camada de <strong>decisão e plano</strong> —
+              com o mapa real do próprio negócio já na mão, não com suposições.
+            </p>
+            <p>
+              A diferença é objetiva: quem chega sem o IRFE
+              passa a primeira hora do workshop descobrindo o que já poderia
+              saber antes de entrar. Quem chega com o IRFE
+              usa essa hora para resolver.
+            </p>
+            <div class="irfe-progression">
+              <p>
+                O IRFE não é preparação para o workshop.
+                É a <strong>primeira sessão do método</strong> —
+                executada individualmente, antes, no seu próprio contexto.
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Eixos como progressão narrativa -->
+          <div class="irfe-eixos">
+            <div class="irfe-eixo">
+              <span class="eixo-seq">1</span>
+              <div class="eixo-body">
+                <h4>Ciclo de Caixa</h4>
+                <p>Onde a tensão começa — leitura da pressão entre recebimento e pagamento.</p>
+              </div>
+              <span class="eixo-arrow">↓</span>
+            </div>
+            <div class="irfe-eixo">
+              <span class="eixo-seq">2</span>
+              <div class="eixo-body">
+                <h4>Margem Operacional</h4>
+                <p>O que sobra de verdade — capacidade real de geração de resultado.</p>
+              </div>
+              <span class="eixo-arrow">↓</span>
+            </div>
+            <div class="irfe-eixo">
+              <span class="eixo-seq">3</span>
+              <div class="eixo-body">
+                <h4>Exposição à Inadimplência</h4>
+                <p>O risco silencioso — perda de receita potencial que não aparece no DRE.</p>
+              </div>
+              <span class="eixo-arrow">↓</span>
+            </div>
+            <div class="irfe-eixo">
+              <span class="eixo-seq">4</span>
+              <div class="eixo-body">
+                <h4>Alavancagem</h4>
+                <p>O quanto o crescimento custa — dependência de capital e custo financeiro real.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Métricas -->
+        <div class="diagnostico-metrics">
+          <div class="metric-block">
+            <div class="metric-val">4</div>
+            <div class="metric-lbl">Eixos de diagnóstico</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-val">&lt;5'</div>
+            <div class="metric-lbl">Para executar</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-val">1 mapa</div>
+            <div class="metric-lbl">De exposição financeira</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-val">V3</div>
+            <div class="metric-lbl">Sistema Prime & AFLOR</div>
+          </div>
+        </div>
+
+        <!-- CTA do IRFE — secundário, nunca competindo com CTA principal -->
+        <div class="diagnostico-cta-row">
+          <div class="diagnostico-cta-text">
+            <p>
+              <strong>Execute o protocolo antes de chegar.</strong>
+              Participantes com IRFE executado entram diretamente
+              no nível de decisão — e saem com um plano mais preciso
+              do que quem chega sem o diagnóstico feito.
+            </p>
+          </div>
+          <div>
+            <a href="https://neto-aflor.github.io/prime-IRFE/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+              Executar o protocolo IRFE →
+            </a>
+            <div class="diagnostico-cta-meta">Disponível para participantes confirmados · Sistema Prime & AFLOR · V3</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 8 · PROVA SOCIAL
+       Vem depois do Diferencial e do IRFE — prova o que já foi declarado.
+       ============================================================ -->
+  <section id="prova">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-lbl">Quem já passou pelo método</span>
+        <div class="gold-rule"></div>
+        <h2>Resultados <em>reais</em></h2>
+        <p class="lead">
+          O que muda quando você para de decidir por intuição
+          e começa a decidir por estrutura.
+        </p>
+      </div>
+
+      <div class="prova-grid">
+
+        <div class="depoimento-card">
+          <!--
+            INSTRUÇÃO EDITORIAL:
+            Substituir pelo depoimento real — 2 a 4 linhas descrevendo
+            um resultado específico e mensurável obtido após aplicar o método.
+            Quanto mais concreto e numérico, mais credibilidade gera.
+            Ex.: "Em 30 dias, cortamos o ciclo de decisão de novos projetos
+            de 3 semanas para 4 dias. O framework foi direto ao ponto."
+          -->
+          <div class="depoimento-text placeholder">
+            [Depoimento real — resultado específico e mensurável após aplicar o método]
+          </div>
+          <div class="depoimento-footer">
+            <div class="depoimento-avatar">—</div>
+            <div class="depoimento-author placeholder">
+              <strong>[Nome do participante]</strong>
+              <span>[Cargo] · [Empresa] · [Setor]</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="depoimento-card">
+          <!--
+            INSTRUÇÃO EDITORIAL:
+            Focar em: tempo economizado, decisão tomada com mais segurança,
+            problema crônico finalmente eliminado.
+          -->
+          <div class="depoimento-text placeholder">
+            [Depoimento real — problema crônico resolvido ou decisão difícil tomada com mais segurança]
+          </div>
+          <div class="depoimento-footer">
+            <div class="depoimento-avatar">—</div>
+            <div class="depoimento-author placeholder">
+              <strong>[Nome do participante]</strong>
+              <span>[Cargo] · [Empresa] · [Setor]</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 9 · DETALHES DO EVENTO
+       ============================================================ -->
+  <section id="evento">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-lbl">O Evento</span>
+        <div class="gold-rule"></div>
+        <h2 class="inv">Detalhes do <em>Workshop</em></h2>
+        <p class="lead inv">Tudo que você precisa saber para confirmar presença.</p>
+      </div>
+
+      <div class="event-grid">
+        <div class="event-card">
+          <div class="event-card-lbl">Data</div>
+          <div class="event-card-val">29 de Maio<br />2026</div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-lbl">Horário</div>
+          <div class="event-card-val">08h30<br />às 11h00</div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-lbl">Formato</div>
+          <div class="event-card-val">Workshop<br />Presencial</div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-lbl">Cidade</div>
+          <div class="event-card-val">Campinas<br />São Paulo</div>
+        </div>
+        <div class="event-card">
+          <div class="event-card-lbl">Vagas</div>
+          <div class="event-card-val" style="color: var(--gold-light);">20<br />Limitadas</div>
+        </div>
+      </div>
+
+      <div class="event-address">
+        <p><strong>Av. José Rocha Bonfim, 214 — Sala 132, Bloco Madri</strong> &nbsp;·&nbsp; Condomínio Praça Capital &nbsp;·&nbsp; Campinas – SP</p>
+        <a href="https://wa.me/5519992402233" target="_blank" rel="noopener noreferrer"
+           class="btn btn-outline-inv" style="border-color: rgba(191,160,107,0.3); color: var(--gold-light); font-size: 11px; padding: 8px 16px;">
+          Confirmar pelo WhatsApp →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 10 · URGÊNCIA
+       Limite como razão técnica, não argumento de marketing.
+       ============================================================ -->
+  <section id="urgencia">
+    <div class="container">
+      <div class="urgencia-card">
+
+        <div class="urgencia-text">
+          <span class="section-lbl">Disponibilidade</span>
+          <h2>20 participantes — limite técnico do método</h2>
+          <p>
+            Diagnóstico real exige atenção real. O limite de <strong>20 vagas</strong>
+            é a condição técnica para que cada empresário saia com um plano
+            de ação próprio — não com respostas genéricas formuladas
+            para um grupo de 200 pessoas.
+          </p>
+          <p>
+            Confirmações por ordem de inscrição.
+            <strong>Após o esgotamento, não há lista de espera.</strong>
+            A próxima edição não tem data definida.
+            E cada mês sem estrutura tem custo real: decisão tomada por urgência,
+            margem erodida por gargalo não resolvido, oportunidade que não esperou.
+            O problema que está custando hoje vai custar mais no próximo mês.
+          </p>
+        </div>
+
+        <div class="urgencia-stat">
+          <span class="urgencia-num">20</span>
+          <span class="urgencia-num-lbl">vagas · consulte disponibilidade</span>
+          <div style="margin: 10px 0 6px; width: 100%; background: var(--rule); border-radius: 2px; height: 2px; overflow: hidden;">
+            <div style="height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); width: 70%; border-radius: 2px;"></div>
+          </div>
+          <span style="font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px;">Preenchimento em andamento</span>
+          <a href="https://neto-aflor.github.io/prime-lp/" target="_blank" rel="noopener noreferrer"
+             class="btn btn-primary" style="display: inline-flex; margin-top: 18px;">
+            Garantir minha vaga
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SEÇÃO 11 · CTA FINAL
+       Decisão inevitável. Custo de não agir presente.
+       ============================================================ -->
+  <section id="cta-final">
+    <div class="container">
+
+      <span class="section-lbl" style="display: block; text-align: center; margin-bottom: 14px;">Próximo passo</span>
+      <div class="gold-rule"></div>
+
+      <h2>
+        Você já sabe qual é o problema.<br />
+        Cada mês sem método é um custo que <em>acumula.</em>
+      </h2>
+
+      <p class="cta-final-sub">
+        Execute o IRFE antes de chegar.
+        Chegue com o problema mapeado e saia com a decisão estruturada —
+        em uma manhã, sem depender de mais uma consultoria.
+      </p>
+
+      <p class="cta-cost">
+        Adiar não é neutro. É mais um mês que o mesmo problema cobra com juros.
+      </p>
+
+      <div class="cta-final-single">
+        <a href="https://neto-aflor.github.io/prime-lp/" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-lg">
+          Confirmar presença — 29 de Maio, Campinas
+        </a>
+        <!--
+          INSTRUÇÃO EDITORIAL:
+          Substituir [Valor do investimento] pelo preço real antes de publicar.
+        -->
+        <p class="cta-final-invest">
+          Investimento: <strong>[Valor do investimento]</strong> · Vagas por ordem de confirmação
+        </p>
+        <p style="font-size: 11px; color: var(--muted); letter-spacing: 0.05em; position: relative; z-index: 1;">
+          Dúvidas antes de confirmar? Fale diretamente antes de decidir.
+        </p>
+      </div>
+
+      <p class="cta-secondary-link">
+        Ainda não executou o protocolo de preparação? &nbsp;
+        <a href="https://neto-aflor.github.io/prime-IRFE/" target="_blank" rel="noopener noreferrer">
+          Acessar o IRFE →
+        </a>
+      </p>
+
+      <p class="cta-contact">
+        Confirme diretamente pelo WhatsApp &nbsp;·&nbsp;
+        <a href="https://wa.me/5519992402233" target="_blank" rel="noopener noreferrer">
+          (19) 99240-2233
+        </a>
+      </p>
+
+    </div>
+  </section>
+
+
+  <div class="rule-black"></div>
+  <div class="rule-gold"></div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          Prime Council
+          <span>Workshop Presencial · Campinas, SP · 29 Mai 2026</span>
+        </div>
+        <div class="footer-copy">
+          © 2026 Prime Council &amp; AFLOR. Todos os direitos reservados.<br />
+          <a href="#hero">Voltar ao topo ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
